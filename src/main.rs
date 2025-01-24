@@ -7,7 +7,7 @@ use ratatui::{
     },
     Terminal,
 };
-use std::{error::Error, io};
+use std::{error::Error, io, io::stderr};
 
 mod app;
 mod ui;
@@ -98,7 +98,7 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
 fn main() -> Result<(), Box<dyn Error>> {
     //setup terminal
     enable_raw_mode()?;
-    let mut stderr = io::stderr();
+    let mut stderr = stderr();
     execute!(stderr, EnterAlternateScreen, EnableMouseCapture)?;
 
     let backend = CrosstermBackend::new(stderr);
